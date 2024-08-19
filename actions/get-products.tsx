@@ -11,7 +11,7 @@ interface Query{
 }
 const getProducts = async (query:Query): Promise<Product[]> => {
   console.log(URL);
-  const url=qs.stringify({
+  const url=qs.stringifyUrl({
     url:URL,
     query:{
 categoryId:query.categoryId,
@@ -22,7 +22,7 @@ isFeatured:query.isFeatured
     
     }
   });
-  const res = await fetch(URL, {
+  const res = await fetch(url, {
     cache: "no-store", // This will ensure that the data is fetched fresh every time
   });
   return res.json();
