@@ -10,7 +10,7 @@ interface Query{
     isFeatured?:boolean;
 }
 const getProducts = async (query:Query): Promise<Product[]> => {
-  console.log(URL);
+  
   const url=qs.stringifyUrl({
     url:URL,
     query:{
