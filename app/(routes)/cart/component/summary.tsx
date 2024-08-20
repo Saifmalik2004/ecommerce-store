@@ -3,7 +3,7 @@ import Button from "@/components/ui/button"
 import Currency from "@/components/ui/currency"
 import useCart from "@/hooks/use-cart"
 import axios from "axios"
-import { useSearchParams } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect } from "react"
 import toast from "react-hot-toast"
 import { on } from "stream"
@@ -12,26 +12,17 @@ import { on } from "stream"
 const Summary=()=> {
     const searchParams= useSearchParams();
     const items = useCart((state)=> state.items);
-    const removeAll=useCart((state)=> state.removeAll)
-useEffect(() => {
-  if(searchParams.get("success")){
-    toast.success("Payment completed");
-    removeAll();
-  }
-  if(searchParams.get("cancel")){
-    toast.error("Something went wrong");
-    
-  }
+ 
 
   
-}, [searchParams,removeAll])
 
+const router=useRouter()
     const totalPrice=items.reduce((total,item)=>{
         return total +Number(item.price)
     },0)
     const oncheckout=async()=>{
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/checkout`,{productIds:items.map((item)=> item.id)});
-    window.location=response.data.url
+       router.push('/checkout')
+   
 }
   return (
     <div className="
