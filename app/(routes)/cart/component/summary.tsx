@@ -48,7 +48,7 @@ const router=useRouter()
             </div>
 
         </div>
-        <Button onClick={oncheckout} className="w-full mt-6">
+        <Button disabled={items.length === 0} onClick={oncheckout} className="w-full mt-6">
             Checkout
         </Button>
     </div>

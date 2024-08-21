@@ -25,7 +25,8 @@ import React, { ForwardedRef, forwardRef } from "react";
             font-semibold
             hover:opacity-75
             transition
-          ` ,className)} 
+          ` ,className)}
+          disabled={disabled} 
         ref={ref}{...props}>
             {children}
         </button>
