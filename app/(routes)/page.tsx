@@ -3,12 +3,19 @@ import getProducts from "@/actions/get-products"
 import Billboard from "@/components/billboard"
 import ProductList from "@/components/product-list"
 import Container from "@/components/ui/container"
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation"
 
 export const revalidate=0
 const HomePage = async()=> {
   
   const products=await getProducts({isFeatured:true});
   const billboard= await getBillboards('66bd66a6501ccfe85ae7894b')
+  const {userId}=  auth();
+
+  if (!userId){
+      redirect("/sign-in")
+  }
   return (
     <Container>
       <div className="space-y-10 pb-10">

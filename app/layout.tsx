@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Urbanist } from "next/font/google";
 import "./globals.css";
-
+import { ClerkProvider } from '@clerk/nextjs';
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import ModalProvider from "@/providers/model-provider";
@@ -20,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-  
+    <ClerkProvider>
     <html lang="en">
       <body className={font.className}>
         <ModalProvider/>
@@ -30,6 +30,7 @@ export default function RootLayout({
         <Footer/>
         </body>
     </html>
+    </ClerkProvider>
     
   );
 }

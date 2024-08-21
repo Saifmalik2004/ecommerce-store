@@ -4,6 +4,7 @@ import Link from 'next/link'
 import MainNav from './main-nav'
 import getCategories from '@/actions/get-categories'
 import NavbarActions from './navbar-actions'
+import { UserButton } from '@clerk/nextjs'
 
 export const revalidate=0;
 const Navbar= async() =>{
@@ -17,7 +18,15 @@ const Navbar= async() =>{
                 </Link>
                 <MainNav data={categories}/>
                 <NavbarActions/>
-               
+                <div className="h-16 w-16 justify-center flex items-center">
+      <UserButton
+        appearance={{
+          elements: {
+            userButtonAvatarBox: "h-10 w-10  border ", // Adjust the size here
+          },
+        }}
+      />
+    </div>
             </div>
         </Container>
 
