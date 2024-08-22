@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation"
 
 interface MainNavProps{
     data:Category[]
+    
 }
 
 const MainNav: React.FC<MainNavProps>=({

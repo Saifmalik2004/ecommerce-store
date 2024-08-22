@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation"; // Import the useRouter hook
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -11,6 +11,7 @@ import Button from "@/components/ui/button";
 import { toast } from "react-hot-toast";
 import useCart from "@/hooks/use-cart";
 import axios from "axios";
+import { useAuth } from "@clerk/nextjs"; // Import useAuth from Clerk
 
 const CheckoutFormSchema = z.object({
   phone: z.string().min(10, "Phone number is required"),
@@ -21,7 +22,8 @@ type CheckoutFormValues = z.infer<typeof CheckoutFormSchema>;
 
 export default function CheckoutPage() {
   const [loading, setLoading] = useState(false);
-  const router = useRouter(); // Initialize the router
+  const { userId, isLoaded } = useAuth(); // Get userId and isLoaded from useAuth
+  const router = useRouter();
   const items = useCart((state) => state.items);
   const productIds = items.map((item) => item.id);
   const removeAll = useCart((state) => state.removeAll);
@@ -57,6 +59,17 @@ export default function CheckoutPage() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (!isLoaded) return; // Wait for auth status to load
+    if (!userId) {
+      router.push('/sign-in'); // Redirect to sign-in page if not authenticated
+    }
+  }, [isLoaded, userId, router]);
+
+  if (!isLoaded || !userId) {
+    return <div>Loading...</div>; // Show a loading state while redirecting
+  }
 
   return (
     <div className="max-w-md mx-auto mt-10">

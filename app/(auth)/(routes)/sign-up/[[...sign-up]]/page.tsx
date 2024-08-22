@@ -1,5 +1,9 @@
 import { SignUp } from "@clerk/nextjs";
 
 export default function Page() {
-  return <SignUp />;
+  return (
+    <div className="flex mt-12">
+      <SignUp />
+    </div>
+  );
 }

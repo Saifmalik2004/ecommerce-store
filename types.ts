@@ -2,6 +2,7 @@ export interface Billboard{
     id:string;
     label:string;
     imageUrl:string
+    textColor:string
 }
 
 export interface Category{
