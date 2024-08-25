@@ -35,7 +35,7 @@ const Navbar = async () => {
                 />
               </div>
             ) : (
-              <div className='hidden lg:flex bg-black rounded-3xl ml-1 h-11 w-20 border flex justify-center text-white '>
+              <div className='hidden lg:flex bg-black rounded-3xl ml-1 h-11 w-20 border  justify-center text-white '>
               <SignInButton>
                 sign-in
               </SignInButton>
