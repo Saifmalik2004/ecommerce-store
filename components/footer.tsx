@@ -17,7 +17,7 @@ const Footer = () => {
 <div className="flex place-items-baseline pt-2">
   
 <p className="text-xs text-black pl-2  ">
-          &copy; 2024 Hekstore, Inc, All right reserved.
+          &copy; 2024 ks-store, Inc, All right reserved.
         </p>
 </div>
       </div>

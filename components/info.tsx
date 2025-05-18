@@ -1,61 +1,64 @@
-"use client"
-import { Product } from '@/types'
-import React, { MouseEventHandler } from 'react'
-import Currency from './ui/currency'
-import Button from './ui/button'
-import { ShoppingCart } from 'lucide-react'
-import useCart from '@/hooks/use-cart'
-interface InfoProps{
-    data:Product
+// frontend-app/components/info.tsx
+"use client";
+
+import { Product } from "@/types";
+import { MouseEventHandler } from "react";
+import Currency from "./ui/currency";
+import Button from "./ui/button";
+import { ShoppingCart } from "lucide-react";
+import useCart from "@/hooks/use-cart";
+
+interface InfoProps {
+  data: Product;
 }
-const Info:React.FC<InfoProps>=({
-    data
-})=> {
-const cart =useCart();
-    const onAddToCart:MouseEventHandler<HTMLButtonElement>=(event)=>{
-        event.stopPropagation();
-        cart.addItem(data)
-        console.log('added')
-    }
+
+const Info: React.FC<InfoProps> = ({ data }) => {
+  const cart = useCart();
+
+  const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.stopPropagation();
+    cart.addItem(data);
+    console.log("Added to cart:", data.name);
+  };
 
   return (
-    <div>
-        <h1 className='text-3xl font-bold text-gray-900'>{data.name}</h1>
-        
-        <div className="mt-3 flex items-end justify content-between">
-            <p className='text-2xl text-gray-900'>
-                <Currency value={data?.price}/>
-            </p>
+    <div className="space-y-6">
+      <h1 className="text-3xl font-bold text-gray-900">{data.name}</h1>
+      <div className="mt-3 flex items-end justify-between">
+        <div className="text-2xl text-gray-900">
+          <Currency value={data.price} />
         </div>
-        
-        <hr className='my-4'/>
-        <div className='flex flex-col gap-y-6'>
+      </div>
+      <hr className="my-4" />
+      <div className="flex flex-col gap-y-6">
         <div className="flex items-center gap-x-4">
-            <h3 className="font-semibold text-black">Size:</h3>
-            <div>{data?.size?.name||'No Size'}
-
-            </div>
+          <h3 className="font-semibold text-black">Size:</h3>
+          <div>{data.size?.name || "No Size"}</div>
         </div>
         <div className="flex items-center gap-x-4">
-             <h3 className='font-semibold text-black'>Color:</h3>
-             <div className="h-6 w-6 rounded-full border border-gray-600"
-             style={{backgroundColor:data?.color?.value}}/>
-
-             
+          <h3 className="font-semibold text-black">Color:</h3>
+          <div
+            className="h-6 w-6 rounded-full border border-gray-600"
+            style={{ backgroundColor: data.color?.value }}
+            aria-label={`Color: ${data.color?.name || "Unknown"}`}
+          />
         </div>
         <div className="mt-6 text-gray-700 text-base sm:text-lg lg:text-xl">
-        {data.description}
+          {data.description}
+        </div>
       </div>
-        </div>
-        <div className="mt-10 flex items-center gap=x=3">
-            <Button onClick={onAddToCart} className='flex items-center gap-x-2'>
-                Add To Cart
-                <ShoppingCart/>
-            </Button>
-        </div>
+      <div className="mt-10 flex items-center gap-x-3">
+        <Button
+          onClick={onAddToCart}
+          className="flex items-center gap-x-2"
+          aria-label="Add to cart"
+        >
+          Add To Cart
+          <ShoppingCart className="h-5 w-5" />
+        </Button>
+      </div>
     </div>
-    
-  )
-}
+  );
+};
 
-export default Info
+export default Info;
